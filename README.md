@@ -71,3 +71,46 @@ def parse_user_agent(ua_str):
 **Признаки из URL**: домен, путь, сложность пути
 
 **Векторные представления**: 10 компонент из referer_vectors
+
+### 3. Агрегация на уровне пользователя
+```python
+# Агрегация событий по пользователям
+user_features = df.groupby('user_id').agg({
+    'is_ios': ['mean', 'sum'],
+    'browser': ['nunique', lambda x: x.mode()[0]],
+    'hour': ['mean', 'std'],
+    # ... другие агрегации
+})
+```
+
+### 4. Построение и оценка модели
+```python
+# Обучение LightGBM с кросс-валидацией
+params = {
+    'objective': 'binary',
+    'metric': 'auc',
+    'boosting_type': 'gbdt',
+    'num_leaves': 63,
+    'learning_rate': 0.05,
+}
+
+model = lgb.train(params, train_data, num_boost_round=1000,
+                 valid_sets=[val_data], callbacks=[lgb.early_stopping(50)])
+```
+
+### 5. Интерпретация результатов
+5 наиболее важных признаков:
+
+**component2_mean** (0.089)
+
+**component3_mean** (0.083)
+
+**component8_mean** (0.079)
+
+**component1_mean** (0.078)
+
+**avg_hour** (0.071)
+
+## Контакты
+**Автор:** Гусев Кирилл
+**Telegram:** @KiKmEp
