@@ -42,6 +42,7 @@ VK-Gender-Prediction/
 ├── results/
 │ └── gender_prediction_submission.csv # Предсказания
 └── README.md
+```
 
 ## 🧮 Этапы работы
 
@@ -58,6 +59,7 @@ referer_vectors = pd.read_csv("referer_vectors.csv", sep=";")
 def parse_user_agent(ua_str):
     ua_str = ua_str.replace("'", '"').replace('None', '"None"')
     return literal_eval(ua_str)
+```
 
 ### 2. Feature Engineering
 **Временные признаки**: час, день недели, время суток (ночь/утро/день/вечер)
