@@ -113,3 +113,4 @@ model = lgb.train(params, train_data, num_boost_round=1000,
 ## Контакты
 **Автор:** Гусев Кирилл
 **Telegram:** @KiKmEp
+**Email:** kirill-gusevki@yandex.ru
